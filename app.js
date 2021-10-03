@@ -11,7 +11,14 @@ function findPossibleRootWords() {
     }
 }
 
-function getUnscrambledWords 
+//Picks out valid words from the set of all permutations
+function getUnscrambledWords (perms){
+    for(var i = 0; i<perms.length; i++){
+        if(dictionary.includes(perms[i])){
+            unscrambledWords.push(perms[i]);
+        }
+    }
+}
 
 // function getPermutations(word){
 
