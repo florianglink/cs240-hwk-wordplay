@@ -1,6 +1,7 @@
 var minLength = 3;
 var maxLength = 6;
 var validRootWords = [];
+var unscrambledWords = [];
 
 function findPossibleRootWords() {
     for (var i = 0; i<dictionary.length; i++){
@@ -10,3 +11,10 @@ function findPossibleRootWords() {
     }
 }
 
+function getUnscrambledWords 
+
+// function getPermutations(word){
+
+// }
+
+findPossibleRootWords();
