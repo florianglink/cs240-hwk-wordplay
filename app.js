@@ -3,11 +3,20 @@ var maxLength = 6;
 var validRootWords = [];
 var unscrambledWords = [];
 var guessedWords = [];
+var wordsWithinRange = [];
+
+function trimDictionary(dictionary){
+    for(var i=0; i<dictionary.length(); i++){
+        if(dictionary[i].length() > maxLength || dictionary[i].length() < minLength){
+            dictionary.remove(dictionary[i]);
+        }
+    }
+}
 
 //Finds all words from the dictionary that are 6 letters long that can possibly be used as the base word
 function findValidRootWords() {
-    for (var i = 0; i<dictionary.length; i++){
-        if(dictionary[i].length == maxLength){
+    for (var i = 0; i<dictionary.length(); i++){
+        if(dictionary[i].length() == maxLength){
             validRootWords.push(dictionary[i]);
         }
     }
@@ -15,7 +24,7 @@ function findValidRootWords() {
 
 //Picks out valid words from the set of all permutations
 function getUnscrambledWords (perms){
-    for(var i = 0; i<perms.length; i++){
+    for(var i = 0; i<perms.length(); i++){
         if(dictionary.includes(perms[i])){
             unscrambledWords.push(perms[i]);
         }
