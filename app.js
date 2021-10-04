@@ -3,7 +3,8 @@ var maxLength = 6;
 var validRootWords = [];
 var unscrambledWords = [];
 
-function findPossibleRootWords() {
+//Finds all words from the dictionary that are 6 letters long that can possibly be used as the base word
+function findValidRootWords() {
     for (var i = 0; i<dictionary.length; i++){
         if(dictionary[i].length == maxLength){
             validRootWords.push(dictionary[i]);
@@ -24,4 +25,8 @@ function getUnscrambledWords (perms){
 
 // }
 
-findPossibleRootWords();
+//Startup
+findValidRootWords();
+var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length())];
+var perms = getPermutations(rootWord);
+getUnscrambledWords(perms);
