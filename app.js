@@ -31,6 +31,7 @@ function shuffle(word){
         word[rand] = temp;
         word = word.join("");
     }
+    return word;
 }
 
 // function getPermutations(word){
