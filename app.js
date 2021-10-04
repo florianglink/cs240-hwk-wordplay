@@ -21,6 +21,18 @@ function getUnscrambledWords (perms){
     }
 }
 
+function shuffle(word){
+    word = word.split("");
+    var l = word.length();
+    for(var i=0; i<word.length(); i++){
+        var rand = Math.floor(Math.random()*l);
+        var temp = word[i];
+        word[temp] = word[rand];
+        word[rand] = temp;
+        word = word.join("");
+    }
+}
+
 // function getPermutations(word){
 
 // }
