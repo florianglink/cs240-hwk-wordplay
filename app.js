@@ -78,14 +78,16 @@ rootWord = scramble(rootWord);
 //Begin main guessing loop
 do {
     console.log("Available letters: " + rootWord + "\n");
+    let blanks = "";
     for(var i=0; i<unscrambledWords.length; i++){
         if(!guessedWords.includes(unscrambledWords[i])){
             for(var j=0; j<unscrambledWords[i].length; j++){
-                console.log("- ");
+                blanks += "- ";
             }
-            console.log("\n");
+            blanks += "\n";
         }
     }
+    console.log(blanks);
     for(var i=0; i<guessedWords.length; i++){
         console.log(guessedWords[i] + "\n");
     }
