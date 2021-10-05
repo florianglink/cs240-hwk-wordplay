@@ -3,20 +3,22 @@ var maxLength = 6;
 var validRootWords = [];
 var unscrambledWords = [];
 var guessedWords = [];
+var validWordsInRange = [];
 
 //Removes words from dictionary that are longer than max length or shorter than min length
 function trimDictionary(dictionary){
-    for(var i=0; i<dictionary.length(); i++){
-        if(dictionary[i].length() > maxLength || dictionary[i].length() < minLength){
-            dictionary.remove(dictionary[i]);
+    for(var i=0; i<dictionary.length; i++){
+        let word = dictionary[i];
+        if(word.length <= maxLength && word.length >= minLength){
+            validWordsInRange.push(word);
         }
     }
 }
 
 //Finds all words from the dictionary that are 6 letters long that can possibly be used as the base word
 function findValidRootWords() {
-    for (var i = 0; i<dictionary.length(); i++){
-        if(dictionary[i].length() == maxLength){
+    for (var i = 0; i<dictionary.length; i++){
+        if(dictionary[i].length == maxLength){
             validRootWords.push(dictionary[i]);
         }
     }
@@ -24,12 +26,12 @@ function findValidRootWords() {
 
 //randomly shuffles the root word
 function scramble(word){
-    word = word.split("");
-    var l = word.length();
-    for(var i=0; i<word.length(); i++){
+    var l = word.length;
+    for(var i=0; i<word.length; i++){
+        word = word.split("");
         var rand = Math.floor(Math.random()*l);
         var temp = word[i];
-        word[temp] = word[rand];
+        word[i] = word[rand];
         word[rand] = temp;
         word = word.join("");
     }
@@ -42,13 +44,13 @@ function isWordFromLetters(testWord, givenLetters){
     var testLetters = testWord.split("");
     var validLetters = givenLetters.split("");
     var count = 0;
-    for(var i=0; i<testLetters.length(); i++){
+    for(var i=0; i<testLetters.length; i++){
         if(validLetters.includes(testLetters[i])){
-            validLetters.splice(validLetters.indexOf(testLetters[i], 1));
+            validLetters.splice(validLetters.indexOf(testLetters[i]), 1);
             count ++;
         }
     }
-    if (count == testWord.length()){
+    if (count == testWord.length){
         return true;
     }
     else{
@@ -58,9 +60,9 @@ function isWordFromLetters(testWord, givenLetters){
 
 //Traverses the dictionary to find all possible words that can be made using the letters in the root word
 function findWordsToBeGuessed(rootWord){
-    for(var i=0; i<dictionary.length(); i++){
-        if(isWordFromLetters(dictionary[i], rootWord)){
-            unscrambledWords.push(dictionary[i]);
+    for(var i=0; i<validWordsInRange.length; i++){
+        if(isWordFromLetters(validWordsInRange[i], rootWord)){
+            unscrambledWords.push(validWordsInRange[i]);
         }
     }
 }
@@ -68,27 +70,28 @@ function findWordsToBeGuessed(rootWord){
 //Startup
 trimDictionary(dictionary);     //get rid of all words that are too short/too long
 findValidRootWords();           //get all 6 letter words that could be used as the root word
-var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length())]; 
+var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length)]; 
 findWordsToBeGuessed(rootWord);
+console.log(unscrambledWords);
 rootWord = scramble(rootWord);
 
 //Begin main guessing loop
 do {
     console.log("Available letters: " + rootWord + "\n");
-    for(var i=0; i<unscrambledWords.length(); i++){
+    for(var i=0; i<unscrambledWords.length; i++){
         if(!guessedWords.includes(unscrambledWords[i])){
-            for(var j=0; j<unscrambledWords[i].length(); j++){
+            for(var j=0; j<unscrambledWords[i].length; j++){
                 console.log("- ");
             }
             console.log("\n");
         }
     }
-    for(var i=0; i<guessedWords.length(); i++){
-        console.log(guessedWords[k] + "\n");
+    for(var i=0; i<guessedWords.length; i++){
+        console.log(guessedWords[i] + "\n");
     }
     guess = prompt("Enter a guess: ");
     if(guess != null){
-        if(guess.length()<minLength){
+        if(guess.length<minLength){
             if(guess == "*"){
                 rootWord = scramble(rootWord);
                 alert("Shuffling root word...");
@@ -97,7 +100,7 @@ do {
                 alert("Guess is too short!");
             }
         }
-        else if(guess.length() > maxLength){
+        else if(guess.length > maxLength){
             alert("Guess is too long!");
         }
         else if(guessedWords.includes(guess)){
@@ -112,10 +115,10 @@ do {
         }
     }
     console.clear();
-} while (guess != null && guessedWords.length() < unscrambledWords.length()); 
+} while (guess != null && guessedWords.length < unscrambledWords.length); 
 
-console.log("You guessed " + guessedWords.length() + " out of" + unscrambledWords.length());
-for(var l=0; l<unscrambledWords.length(); l++){
+console.log("You guessed " + guessedWords.length + " out of " + unscrambledWords.length);
+for(var l=0; l<unscrambledWords.length; l++){
     console.log(unscrambledWords[l] + "\n");
 }
 
