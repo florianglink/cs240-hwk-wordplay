@@ -86,14 +86,14 @@ rootWord = scramble(rootWord);
 do {
     console.log("Available letters: " + rootWord + "\n");
     for(var i=0; i<unscrambledWords.length(); i++){
-        if(!guessedWords.includes(unscrambledWords[i]))
+        if(!guessedWords.includes(unscrambledWords[i])){
             for(var j=0; j<unscrambledWords[i].length(); j++){
                 console.log("- ");
             }
             console.log("\n");
         }
     }
-    for(var k=0; k<guessedWords.length(); k++){
+    for(var i=0; i<guessedWords.length(); i++){
         console.log(guessedWords[k] + "\n");
     }
     guess = prompt("Enter a guess: ");
@@ -122,7 +122,8 @@ do {
         }
     }
     console.clear();
-while (guess != null && guessedWords.length() < unscrambledWords.length()); 
+} while (guess != null && guessedWords.length() < unscrambledWords.length()); 
+
 console.log("You guessed " + guessedWords.length() + " out of" + unscrambledWords.length());
 for(var l=0; l<unscrambledWords.length(); l++){
     console.log(unscrambledWords[l] + "\n");
