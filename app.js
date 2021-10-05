@@ -5,6 +5,7 @@ var unscrambledWords = [];
 var guessedWords = [];
 var wordsWithinRange = [];
 
+//Removes words from dictionary that are longer than max length or shorter than min length
 function trimDictionary(dictionary){
     for(var i=0; i<dictionary.length(); i++){
         if(dictionary[i].length() > maxLength || dictionary[i].length() < minLength){
@@ -45,11 +46,30 @@ function scramble(word){
     return word;
 }
 
+function isWordFromLetters(testWord, givenLetters){
+    var testLetters = testWord.split("");
+    var validLetters = givenLetters.split("");
+    var count = 0;
+    for(var i=0; i<testLetters.length(); i++){
+        if(validLetters.includes(testLetters[i])){
+            validLetters.splice(validLetters.indexOf(testLetters[i], 1));
+            count ++;
+        }
+    }
+    if (count == testWord.length()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 // function getPermutations(word){
 
 // }
 
 //Startup
+trimDictionary(dictionary);
 findValidRootWords();
 var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length())];
 var perms = getPermutations(rootWord);
@@ -61,7 +81,7 @@ do {
     console.log("Available letters: " + rootWord + "\n");
     for(var i=0; i<unscrambledWords.length(); i++){
         if(!guessedWords.includes(unscrambledWords[i]))
-            for(int j=0; j<unscrambledWords[i].length(); j++){
+            for(var j=0; j<unscrambledWords[i].length(); j++){
                 console.log("- ");
             }
             console.log("\n");
@@ -77,7 +97,9 @@ do {
                 rootWord = scramble(rootWord);
                 alert("Shuffling root word...");
             }
-            alert("Guess is too short!");
+            else{
+                alert("Guess is too short!");
+            }
         }
         else if(guess.length() > maxLength){
             alert("Guess is too long!");
