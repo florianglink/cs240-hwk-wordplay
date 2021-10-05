@@ -24,13 +24,13 @@ function findValidRootWords() {
 }
 
 //Picks out valid words from the set of all permutations
-function getUnscrambledWords (perms){
-    for(var i = 0; i<perms.length(); i++){
-        if(dictionary.includes(perms[i])){
-            unscrambledWords.push(perms[i]);
-        }
-    }
-}
+// function getUnscrambledWords (perms){
+//     for(var i = 0; i<perms.length(); i++){
+//         if(dictionary.includes(perms[i])){
+//             unscrambledWords.push(perms[i]);
+//         }
+//     }
+// }
 
 //randomly shuffles the root word
 function scramble(word){
@@ -46,6 +46,7 @@ function scramble(word){
     return word;
 }
 
+//Determines if a given word can be created with a given set of letters
 function isWordFromLetters(testWord, givenLetters){
     var testLetters = testWord.split("");
     var validLetters = givenLetters.split("");
@@ -64,16 +65,19 @@ function isWordFromLetters(testWord, givenLetters){
     }
 }
 
-// function getPermutations(word){
-
-// }
+function findWordsToBeGuessed(rootWord){
+    for(var i=0; i<dictionary.length(); i++){
+        if(isWordFromLetters(dictionary[i], rootWord)){
+            unscrambledWords.push(dictionary[i]);
+        }
+    }
+}
 
 //Startup
-trimDictionary(dictionary);
-findValidRootWords();
-var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length())];
-var perms = getPermutations(rootWord);
-getUnscrambledWords(perms);
+trimDictionary(dictionary);     //get rid of all words that are too short/too long
+findValidRootWords();           //get all 6 letter words that could be used as the root word
+var rootWord = validRootWords[Math.floor(Math.random() * validRootWords.length())]; 
+findWordsToBeGuessed(rootWord);
 rootWord = scramble(rootWord);
 
 //Begin main guessing loop
