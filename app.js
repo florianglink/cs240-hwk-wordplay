@@ -46,7 +46,8 @@ function scramble(word){
     return word;
 }
 
-//Determines if a given word can be created with a given set of letters
+//Determines if a given word can be created with a given set of letters.
+//Accounts for the fact that a letter can only be used more than once if it occurs in the given letters more than once.
 function isWordFromLetters(testWord, givenLetters){
     var testLetters = testWord.split("");
     var validLetters = givenLetters.split("");
@@ -65,6 +66,7 @@ function isWordFromLetters(testWord, givenLetters){
     }
 }
 
+//Traverses the dictionary to find all possible words that can be made using the letters in the root word
 function findWordsToBeGuessed(rootWord){
     for(var i=0; i<dictionary.length(); i++){
         if(isWordFromLetters(dictionary[i], rootWord)){
@@ -120,8 +122,8 @@ do {
         }
     }
     console.clear();
-} while (guess != null && guessedWords.length() < unscrambledWords.length());
-console.log("You guessed " + guessedWords.length() + " out of" + unscrambledWords.length();)
+while (guess != null && guessedWords.length() < unscrambledWords.length()); 
+console.log("You guessed " + guessedWords.length() + " out of" + unscrambledWords.length());
 for(var l=0; l<unscrambledWords.length(); l++){
     console.log(unscrambledWords[l] + "\n");
 }
